@@ -1,105 +1,61 @@
-# 🧩 Patrón Strategy - Sistema de Pedidos
+# Sistema de Pedidos con Patron Strategy
 
-Implementación en **Java** del **Patrón Strategy** para gestionar distintos tipos de descuentos en un sistema de pedidos.
+Implementacion en Java del Patron Strategy para gestionar distintos tipos de descuento en un sistema de pedidos. Incluye persistencia en CSV y separacion por capas.
 
-## 📋 ¿Qué hace?
+## Que hace
 
-- **Gestión de descuentos**: Porcentaje, fijo, 2x1 y sin descuento
-- **Persistencia CSV**: Lectura/escritura de menú y pedidos
-- **Diseño orientado a objetos**: Aplicación de patrones de diseño
-- **Separación de responsabilidades**: Código limpio y mantenible
+El sistema permite crear pedidos y aplicar diferentes estrategias de descuento (porcentaje, fijo, 2x1 o sin descuento) de forma intercambiable, sin modificar la logica del pedido. El menu y los pedidos se leen y escriben en archivos CSV.
 
-## 🛠️ Tech Stack
+## Por que este diseno
 
-| Lenguaje | Patrón | Persistencia |
-|----------|--------|--------------|
-| Java 11+ | Strategy | CSV |
-| POO | Factory | File I/O |
-
-## 🚀 Cómo correrlo localmente
-
-### Prerrequisitos
-
-```bash
-java --version  # JDK 11+
-```
-
-### Instalación
-
-```bash
-# Clonar repositorio
-git clone https://github.com/epinki07/patron-strategy-pedidos.git
-cd patron-strategy-pedidos
-
-# Compilar
-javac -d out src/**/*.java
-
-# Ejecutar
-java -cp out com.pedidos.Main
-```
-
-## 📁 Estructura del proyecto
-
-```
-patron-strategy-pedidos/
-├── src/
-│   ├── Main.java
-│   ├── model/
-│   │   ├── Pedido.java
-│   │   ├── Producto.java
-│   │   └── Descuento.java
-│   ├── strategy/
-│   │   ├── DescuentoStrategy.java  # Interface
-│   │   ├── PorcentajeStrategy.java
-│   │   ├── FijoStrategy.java
-│   │   ├── DosXUnoStrategy.java
-│   │   └── SinDescuentoStrategy.java
-│   └── repository/
-│       └── CSVRepository.java
-├── data/
-│   ├── menu.csv
-│   └── pedidos.csv
-└── README.md
-```
-
-## 📖 Patrón Strategy
-
-El **Patrón Strategy** permite definir una familia de algoritmos, encapsular cada uno y hacerlos intercambiables.
+El Patron Strategy permite agregar o cambiar reglas de descuento sin tocar el codigo central. Cada estrategia es una clase independiente que implementa la misma interfaz, lo que hace el sistema extensible sin romper lo que ya funciona.
 
 ```java
-// Interface común
 interface DescuentoStrategy {
     double aplicar(double precioTotal);
 }
 
-// Implementación concreta
 class PorcentajeStrategy implements DescuentoStrategy {
     private int porcentaje;
-    
     public double aplicar(double precioTotal) {
         return precioTotal * (1 - porcentaje / 100.0);
     }
 }
 ```
 
-### Beneficios
+## Como correrlo
 
-- ✅ **Open/Closed**: Abierto a extensión, cerrado a modificación
-- ✅ **Single Responsibility**: Cada estrategia tiene una responsabilidad
-- ✅ **Fácil testing**: Strategies aisladas y testeables
-- ✅ **Mantenible**: Cambiar descuentos no afecta el core
+```bash
+git clone https://github.com/epinki07/patron-strategy-pedidos.git
+cd patron-strategy-pedidos
+javac -d out src/**/*.java
+java -cp out com.pedidos.Main
+```
 
-## 💡 Qué aprendí
+## Estructura
 
-- **Patrones de diseño**: Strategy, Factory, Repository
-- **Arquitectura limpia**: Separación por capas
-- **Manejo de CSV**: Lectura/escritura en Java
-- **POO avanzada**: Interfaces, clases abstractas, polimorfismo
+```
+patron-strategy-pedidos/
+├── src/
+│   ├── Main.java
+│   ├── model/
+│   ├── strategy/
+│   │   ├── DescuentoStrategy.java
+│   │   ├── PorcentajeStrategy.java
+│   │   ├── FijoStrategy.java
+│   │   ├── DosXUnoStrategy.java
+│   │   └── SinDescuentoStrategy.java
+│   └── repository/
+│       └── CSVRepository.java
+└── data/
+    ├── menu.csv
+    └── pedidos.csv
+```
 
-## 🤝 Autor
+## Tech Stack
 
-**Diego Ramirez Magaña**
+Java 11+, POO, persistencia en CSV.
 
-- 📧 dramirezmagana@gmail.com
-- 🔗 [LinkedIn](https://www.linkedin.com/in/diego-ramirez-maga%C3%B1a-b15022298/)
-- 🐙 [GitHub](https://github.com/epinki07)
+## Autor
+
+Diego Ramirez Magana — [LinkedIn](https://www.linkedin.com/in/diego-ramirez-maga%C3%B1a-b15022298/) | [GitHub](https://github.com/epinki07) | dramirezmagana@gmail.com
